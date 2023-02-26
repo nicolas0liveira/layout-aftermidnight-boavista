@@ -121,7 +121,7 @@ const paths = {
 };
 
 
-gulp.task('clear', function () {
+gulp.task('clean:dist', function () {
   return gulp.src(paths.dist.dir, {
     allowEmpty: true,
     read: false
@@ -129,7 +129,33 @@ gulp.task('clear', function () {
     .pipe(clean());
 });
 
-gulp.task('process:css', function(done) {
+gulp.task('copy:libs', function () {
+  return gulp
+    .src(npmdist(), { base: paths.node.dir })
+    .pipe(rename(function (path) {
+        path.dirname = path.dirname.replace(/\/dist/, '').replace(/\\dist/, '');
+    }))
+    .pipe(gulp.dest(paths.dist.libsdir));
+});
+
+//copy every file except negative globs, indicated by !
+gulp.task('copy:otherfiles', function (done) {
+  return gulp
+    .src([
+      paths.src.files,
+      '!' + paths.src.html.files,
+      '!' + paths.src.html.partials.dir,
+      '!' + paths.src.html.partials.files,
+      '!' + paths.src.assets.scss.dir,
+      '!' + paths.src.assets.scss.files,
+      '!' + paths.src.assets.js.dir,
+      '!' + paths.src.assets.js.files,
+    ])
+    .pipe(gulp.dest(paths.dist.dir));
+  done();
+});
+
+gulp.task('process:css', function (done) {
   gulp.src(paths.src.assets.scss.files)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -147,7 +173,7 @@ gulp.task('process:css', function(done) {
 });
 
 // concatenate and copy all JavaScript (except vendor scripts)
-gulp.task('process:js', function(done) { 
+gulp.task('process:js', function (done) {
   return gulp.src([paths.src.assets.js.files])
     .pipe(gulp.dest(paths.dist.js.dir))
     .pipe(concat('bundle-all.js'))
@@ -156,32 +182,27 @@ gulp.task('process:js', function(done) {
   done();
 });
 
-//copy every file except negative globs, indicated by !
-gulp.task('copy:otherfiles', function (done) {
+gulp.task('process:html', function () {
   return gulp
     .src([
-      paths.src.files,
-      '!' + paths.src.html.files,
-      '!' + paths.src.html.partials.dir,
-      '!' + paths.src.html.partials.files,
-      '!' + paths.src.assets.scss.dir,
-      '!' + paths.src.assets.scss.files,
-      '!' + paths.src.assets.js.dir,
-      '!' + paths.src.assets.js.files,
+      paths.src.html.files,
+      '!' + paths.dist.base.files,
+      '!' + paths.src.partials.files
     ])
-    .pipe(gulp.dest(paths.dist.dir));
-    done();
-});
-
-gulp.task('copy:libs', function () {
-  return gulp
-    .src(npmdist(), { base: paths.node.dir })
-    .pipe(rename(function (path) {
-        path.dirname = path.dirname.replace(/\/dist/, '').replace(/\\dist/, '');
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file',
+      indent: true,
     }))
-    .pipe(gulp.dest(paths.dist.libsdir));
+    .pipe(replace(/href="(.{0,10})node_modules/g, 'href="$1assets/libs'))
+    .pipe(replace(/src="(.{0,10})node_modules/g, 'src="$1assets/libs'))
+    .pipe(useref())
+    .pipe(cached())
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(gulpif('*.css', cssnano({ svgo: false })))
+    .pipe(gulp.dest(paths.dist.base.dir));
 });
 
 
-gulp.task('build', gulp.series('process:css', 'process:js', 'copy:libs', 'copy:otherfiles'));
+gulp.task('build', gulp.series('clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js'));
 
