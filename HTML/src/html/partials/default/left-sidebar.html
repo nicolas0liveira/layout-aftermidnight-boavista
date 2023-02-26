@@ -1,0 +1,116 @@
+<!-- Left Sidebar Start -->
+<aside class="vertical-menu js-sidebar">
+
+    <!-- LOGO -->
+    <div class="navbar-brand-box">
+        <a href="/index.html" class="logo logo-light">
+            <span class="logo-sm">
+                <img src="/assets/img/logo-sm.png" alt="" height="22">
+            </span>
+            <span class="logo-lg">
+                <img src="/assets/img/logo-lg.png" alt="" height="22">
+            </span>
+        </a>
+    </div>
+
+    <button type="button" class="btn btn-sm px-3 font-size-16 header-item vertical-menu-btn">
+        <i class="fa fa-fw fa-bars"></i>
+    </button>
+
+    <div data-simplebar class="sidebar-menu-scroll">
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+
+                <li class="menu-title" data-key="t-public">Dashboards</li>
+                <li>
+                    <a th:href="@{/dash.html}">
+                        <i class="icon nav-icon" data-feather="monitor"></i>
+                        <span class="menu-item" data-key="t-dash-geral">Visão Geral</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/me.html}">
+                        <i class="icon nav-icon" data-feather="smile"></i>
+                        <span class="menu-item" data-key="t-me">Eu Sócio</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/me/dash.html}">
+                        <i class="icon nav-icon" data-feather="activity"></i>
+                        <span class="menu-item" data-key="t-dash-eventos">Eventos</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/me/dash.html}">
+                        <i class="icon nav-icon" data-feather="shopping-cart"></i>
+                        <span class="menu-item" data-key="t-dash-vendas">Vendas</span>
+                    </a>
+                </li>
+
+                <li class="menu-title" data-key="t-administracao">Administração</li>
+
+                <li>
+                    <a th:href="@{/javascript: void(0);}" class="has-arrow">
+                        <i class="icon nav-icon" data-feather="database"></i>
+                        <span class="menu-item" data-key="t-admin-cadastro">Cadastros Básicos</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a th:href="@{/cidade.html}" data-key="t-cidade">Cidades</a></li>
+                        <li><a th:href="@{/socio.html}" data-key="t-socio">Sócio</a></li>
+                        <li><a th:href="@{/usuario.html}" data-key="t-usuario">Usuários</a></li>
+                        <li><a th:href="@{/evento.html}" data-key="t-evento">Eventos</a></li>
+                        <li><a th:href="@{/documento.html}" data-key="t-documento">Documentos</a></li>
+                        <li><a th:href="@{/cliente.html}" data-key="t-cliente">Clientes</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a th:href="@{/javascript: void(0);}" class="has-arrow">
+                        <i class="icon nav-icon" data-feather="truck"></i>
+                        <span class="menu-item" data-key="t-admin-gestao-venda">Gestão de Vendas</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a th:href="@{/fornecedor.html}" data-key="t-fornecedor">Fornecedores</a></li>
+                        <li><a th:href="@{/item-venda.html}" data-key="t-item-venda">Itens de Venda</a></li>
+                        <li><a th:href="@{/venda.html}" data-key="t-venda">Vendas</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a th:href="@{/javascript: void(0);}" class="has-arrow">
+                        <i class="icon nav-icon" data-feather="pocket"></i>
+                        <span class="menu-item" data-key="t-admin-gestao-patri">Gestão Patrimônio</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a th:href="@{/patrimonio/item.html}" data-key="t-item-patrimonio">Itens de
+                                Patrimônio</a></li>
+                        <li><a th:href="@{/patrimonio/aluguel.html}" data-key="t-aluguel">Aluguel</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a th:href="@{/javascript: void(0);}" class="has-arrow">
+                        <i class="icon nav-icon" data-feather="dollar-sign"></i>
+                        <span class="menu-item" data-key="t-admin-gestao-fin">Gestão Financeira</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a th:href="@{/fluxo-caixa.html}" data-key="t-item-fluxocaixa">Fluxo Caixa</a></li>
+                        <li><a th:href="@{/contribuicao.html}" data-key="t-item-contribuicao">Semestralidade</a>
+                        </li>
+                        <li><a th:href="@{/relatorio/adimplencia.html}" data-key="t-rel-adimplencia">Relatório
+                                Adimplêntes</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</aside>
+<!-- Left Sidebar End -->
