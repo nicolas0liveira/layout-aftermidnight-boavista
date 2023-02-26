@@ -62,6 +62,10 @@ const paths = {
     dir: './dist',
     files: './dist/**/*',
     libsdir: './dist/assets/libs',
+    pages: {
+      dir: './dist/assets/js/pages',
+      files: './dist/assets/js/pages/**/*.js'
+    },
     css: {
       dir: './dist/assets/css',
     },
@@ -121,12 +125,13 @@ const paths = {
 };
 
 
-gulp.task('clean:dist', function () {
+gulp.task('clean:dist', function (callback) {
   return gulp.src(paths.dist.dir, {
     allowEmpty: true,
     read: false
   })
     .pipe(clean());
+  callback();
 });
 
 gulp.task('copy:libs', function () {
@@ -139,23 +144,20 @@ gulp.task('copy:libs', function () {
 });
 
 //copy every file except negative globs, indicated by !
-gulp.task('copy:otherfiles', function (done) {
+gulp.task('copy:otherfiles', function (callback) {
   return gulp
     .src([
       paths.src.files,
-      '!' + paths.src.html.files,
-      '!' + paths.src.html.partials.dir,
-      '!' + paths.src.html.partials.files,
-      '!' + paths.src.assets.scss.dir,
-      '!' + paths.src.assets.scss.files,
-      '!' + paths.src.assets.js.dir,
-      '!' + paths.src.assets.js.files,
+      '!' + paths.src.html.dir + '/**',
+      '!' + paths.src.html.partials.dir + '/**',
+      '!' + paths.src.assets.scss.dir + '/**',
+      '!' + paths.src.assets.js.dir + '/**',
     ])
     .pipe(gulp.dest(paths.dist.dir));
-  done();
+  callback();
 });
 
-gulp.task('process:css', function (done) {
+gulp.task('process:css', function (callback) {
   gulp.src(paths.src.assets.scss.files)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -169,25 +171,34 @@ gulp.task('process:css', function (done) {
     )
     .pipe(sourcemaps.write("."))
     .pipe(gulp.dest(paths.dist.css.dir));
-  done();
+  callback();
 });
 
 // concatenate and copy all JavaScript (except vendor scripts)
-gulp.task('process:js', function (done) {
+gulp.task('process:js', function (callback) {
   return gulp.src([paths.src.assets.js.files])
     .pipe(gulp.dest(paths.dist.js.dir))
     .pipe(concat('bundle-all.js'))
     .pipe(uglify())
     .pipe(gulp.dest(paths.dist.js.dir));
-  done();
+  callback();
 });
+
+gulp.task('process:jspages', function (callback) {
+  return gulp.src([paths.src.assets.js.pages.files])
+    .pipe(gulp.dest(paths.dist.js.pages.dir))
+    .pipe(concat('pages-all.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest(paths.dist.js.pages.dir));
+  callback();
+})
 
 gulp.task('process:html', function () {
   return gulp
     .src([
       paths.src.html.files,
-      '!' + paths.dist.base.files,
-      '!' + paths.src.partials.files
+      '!' + paths.dist.files,
+      '!' + paths.src.html.partials.files
     ])
     .pipe(fileinclude({
       prefix: '@@',
@@ -198,11 +209,9 @@ gulp.task('process:html', function () {
     .pipe(replace(/src="(.{0,10})node_modules/g, 'src="$1assets/libs'))
     .pipe(useref())
     .pipe(cached())
-    .pipe(gulpif('*.js', uglify()))
-    .pipe(gulpif('*.css', cssnano({ svgo: false })))
-    .pipe(gulp.dest(paths.dist.base.dir));
+    .pipe(gulp.dest(paths.dist.dir));
 });
 
 
-gulp.task('build', gulp.series('clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js'));
+gulp.task('build', gulp.series('clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js', 'process:html'));
 
