@@ -19,8 +19,6 @@ const cssnano = require('gulp-cssnano');//cssnano insted of gulp-cssnano
 //clears the build directory and deletes everything in it
 const clean = require('gulp-clean');
 
-//const del = require('del'); //Error [ERR_REQUIRE_ESM]: require() of ES Module
-
 const gulpif = require('gulp-if');
 
 const fileinclude = require('gulp-file-include');
@@ -125,12 +123,13 @@ const paths = {
 
 gulp.task('clear', function () {
   return gulp.src(paths.dist.dir, {
+    allowEmpty: true,
     read: false
   })
     .pipe(clean());
 });
 
-gulp.task('processCSS', function(done) {
+gulp.task('process:css', function(done) {
   gulp.src(paths.src.assets.scss.files)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
@@ -147,7 +146,8 @@ gulp.task('processCSS', function(done) {
   done();
 });
 
-gulp.task('concatAllJS', function(done) { 
+// concatenate and copy all JavaScript (except vendor scripts)
+gulp.task('process:js', function(done) { 
   return gulp.src([paths.src.assets.js.files])
     .pipe(gulp.dest(paths.dist.js.dir))
     .pipe(concat('bundle-all.js'))
@@ -156,45 +156,32 @@ gulp.task('concatAllJS', function(done) {
   done();
 });
 
-// gulp.task('clean:packageLock', function (callback) {
-//   del.sync(paths.base.packageLock.files);
-//   callback();
-// });
-
-// gulp.task('clean:dist', function (callback) {
-//   del.sync(paths.dist.base.dir);
-//   callback();
-// });
-
-gulp.task('copy:all', function () {
+//copy every file except negative globs, indicated by !
+gulp.task('copy:otherfiles', function (done) {
   return gulp
     .src([
       paths.src.files,
-      '!' + paths.src.html.partials.dir,
-      '!' + paths.src.partials.files,
-      '!' + paths.src.scss.dir,
-      '!' + paths.src.scss.files,
-      '!' + paths.src.js.dir,
-      '!' + paths.src.js.files,
-      '!' + paths.src.js.main,
       '!' + paths.src.html.files,
+      '!' + paths.src.html.partials.dir,
+      '!' + paths.src.html.partials.files,
+      '!' + paths.src.assets.scss.dir,
+      '!' + paths.src.assets.scss.files,
+      '!' + paths.src.assets.js.dir,
+      '!' + paths.src.assets.js.files,
     ])
     .pipe(gulp.dest(paths.dist.dir));
+    done();
 });
 
 gulp.task('copy:libs', function () {
   return gulp
     .src(npmdist(), { base: paths.node.dir })
     .pipe(rename(function (path) {
-      path.dirname = path.dirname.replace(/\/dist/, '').replace(/\\dist/, '');
+        path.dirname = path.dirname.replace(/\/dist/, '').replace(/\\dist/, '');
     }))
     .pipe(gulp.dest(paths.dist.libsdir));
 });
 
 
+gulp.task('build', gulp.series('process:css', 'process:js', 'copy:libs', 'copy:otherfiles'));
 
-
-//exports.default = gulp.series(processCSS, concatAllJS);
-gulp.task('default', gulp.series('processCSS', 'concatAllJS'));
-
-//gulp.task('default', gulp.series(gulp.parallel('fileinclude', 'scss'), gulp.parallel('browsersync', 'watch')));
