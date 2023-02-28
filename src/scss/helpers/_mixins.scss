@@ -1,0 +1,26 @@
+///  Ferramenta de para apoiar definição de tamanho de um elemento
+/// @group Helpers
+/// @example scss - uso 1
+///     @include size(200rem,200rem);
+///  
+/// @example scss - uso 2
+///     $params: (true, 42, 'kittens');
+///     @include dummy($params...);
+/// 
+/// @example scss - uso 3
+///     $params: (
+///      'c': 'kittens',
+///      'a': true,
+///      'b': 42,
+///     );
+///     @include dummy($params...);
+///  
+/// 
+/// 
+/// @author Nícolas Oliveira
+/// @param {Length} $width - largura
+/// @param {Length} $height - altura 
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}

@@ -10,6 +10,16 @@ $gray-lighter:  lighten($gray-base, 20%);
 $btn-primary-bg:#126;
 $brand-danger:#456;
 
+$am-color-map:(
+    'gray-base':        $gray-base,
+    'gray':             $gray,
+    'gray-dark':        $gray-dark,
+    'gray-light':       $gray-light,
+    'gray-lighter':     $gray-lighter,
+    'btn-primary-bg':   $btn-primary-bg,
+    'brand-danger':     $brand-danger,
+);
+
 // #####################
 // # Font Awesome
 // #####################

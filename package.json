@@ -1,13 +1,16 @@
 {
-  "name": "layout-aftermidnight-boavista",
-  "version": "1.0.0",
-  "packageManager": "yarn@3.4.1",
-  "author": "Nicolas",
-  "license": "GPL-3.0",
-  "repository": "https://github.com/nicolas0liveira/layout-aftermidnight-boavista",
-  "main": "gulpfile.js",
   "private": true,
   "type": "commonjs",
+  "version": "1.0.0",
+  "name": "layout-Aftermidnight-boavista",
+  "title": "4ftermidnight - Boa Vista Layout",
+  "description": "Layout para uso diverso",
+  "author": "Nicolas Oliveira - https://github.com/nicolas0liveira",
+  "license": "GPL-3.0",
+  "repository": "https://github.com/nicolas0liveira/layout-aftermidnight-boavista",
+  "homepage": "https://github.com/4ftermidnight",
+  "main": "gulpfile.js",
+  "packageManager": "yarn@3.4.1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -48,6 +51,8 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-useref-plus": "^0.0.8",
-    "sass": "^1.58.3"
+    "sass": "^1.58.3",
+    "sassdoc": "^2.7.4",
+    "sassdoc-extras": "^3.0.0"
   }
 }

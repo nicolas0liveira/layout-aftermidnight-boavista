@@ -46,6 +46,10 @@ const uglify = require('gulp-uglify');
 //minify the css
 const cleanCSS = require('gulp-clean-css');
 
+//gerar documentação do css
+const sassdoc = require('sassdoc');
+const sassdocextras = require('sassdoc-extras');
+
 
 //paths para reuso
 const paths = {
@@ -57,6 +61,10 @@ const paths = {
   },
   packageLock: {
     files: './package-lock.json'
+  },
+  doc: {
+    dir: './docs',
+    cssdir: './docs/css'
   },
   dist: {
     dir: './dist',
@@ -122,6 +130,37 @@ const paths = {
   }
 };
 
+gulp.task('sassdoc', function () {
+  var options = {
+    dest: paths.doc.cssdir,
+    verbose: true,
+    package: 'package.json',
+    display: {
+      access: ['public', 'private'],
+      alias: true,
+      watermark: true,
+    },
+    groups: {
+      'undefined': 'General',
+      helpers: 'Helpers',
+      bar: 'Bar group',
+    },
+
+    shortcutIcon: paths.src.img.dir +'/favicon.ico',
+
+  };
+  return gulp.src(paths.src.scss.files)
+    .pipe(sassdoc(options));
+});
+
+gulp.task('clean:sassdoc', function (callback) {
+  return gulp.src(paths.doc.cssdir, {
+    allowEmpty: true,
+    read: false
+  })
+    .pipe(clean());
+  callback();
+});
 
 gulp.task('clean:dist', function (callback) {
   return gulp.src(paths.dist.dir, {
@@ -156,7 +195,6 @@ gulp.task('copy:otherfiles', function (callback) {
 });
 
 gulp.task('process:css', function (callback) {
-  console.log('hu');
   gulp.src(paths.src.scss.files)
     //.pipe(sourcemaps.init())
     .pipe(sass())
@@ -231,10 +269,9 @@ gulp.task('watch', function () {
   gulp.watch([paths.src.html.files, paths.src.html.partials.files], gulp.series('process:html', 'browsersyncReload'));
 });
 
-gulp.task('build', gulp.series('clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js', 'process:html'));
+gulp.task('build', gulp.series('clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js', 'process:html','sassdoc'));
 
 gulp.task('default', 
-gulp.series(
-  'clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js', 'process:html'
+gulp.series('clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js', 'process:html'
   , gulp.parallel('browsersync', 'watch')));
 
