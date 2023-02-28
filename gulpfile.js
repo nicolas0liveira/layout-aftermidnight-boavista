@@ -30,7 +30,7 @@ const rename = require('gulp-rename');
 
 const useref = require('gulp-useref-plus');
 
-// dds vendor prefixes to CSS rules 
+// adds vendor prefixes to CSS rules 
 //const autoprefixer = require("autoprefixer");//autoprefixer insted of gulp-autoprefixer
 const autoprefixer = require("gulp-autoprefixer");
 
@@ -158,9 +158,10 @@ gulp.task('copy:otherfiles', function (callback) {
 });
 
 gulp.task('process:css', function (callback) {
+  console.log('hu');
   gulp.src(paths.src.assets.scss.files)
-    .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
+    //.pipe(sourcemaps.init())
+    .pipe(sass())
     .pipe(autoprefixer())
     .pipe(gulp.dest(paths.dist.css.dir))
     .pipe(cleanCSS())
@@ -169,7 +170,7 @@ gulp.task('process:css', function (callback) {
         suffix: ".min"
       })
     )
-    .pipe(sourcemaps.write("."))
+    //.pipe(sourcemaps.write("."))
     .pipe(gulp.dest(paths.dist.css.dir));
   callback();
 });
@@ -212,6 +213,30 @@ gulp.task('process:html', function () {
     .pipe(gulp.dest(paths.dist.dir));
 });
 
+gulp.task('browsersync', function (callback) {
+  browsersync.init({
+    server: {
+      baseDir: [paths.dist.dir, paths.src.dir, paths.base.dir]
+    },
+  });
+  callback();
+});
+
+gulp.task('browsersyncReload', function (callback) {
+  browsersync.reload();
+  callback();
+});
+
+gulp.task('watch', function () {
+  gulp.watch([paths.src.assets.scss.files], gulp.series('process:css', 'browsersyncReload'));
+  gulp.watch([paths.src.assets.js.dir], gulp.series('process:js', 'browsersyncReload'));
+  gulp.watch([paths.src.html.files, paths.src.html.partials.files], gulp.series('process:html', 'browsersyncReload'));
+});
 
 gulp.task('build', gulp.series('clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js', 'process:html'));
+
+gulp.task('default', 
+gulp.series(
+  'clean:dist', 'copy:libs', 'copy:otherfiles', 'process:css', 'process:js', 'process:html'
+  , gulp.parallel('browsersync', 'watch')));
 
