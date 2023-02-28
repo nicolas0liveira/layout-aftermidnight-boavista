@@ -61,48 +61,46 @@ const paths = {
   dist: {
     dir: './dist',
     files: './dist/**/*',
-    libsdir: './dist/assets/libs',
+    libsdir: './dist/libs',
     pages: {
-      dir: './dist/assets/js/pages',
-      files: './dist/assets/js/pages/**/*.js'
+      dir: './dist/js/pages',
+      files: './dist/js/pages/**/*.js'
     },
     css: {
-      dir: './dist/assets/css',
+      dir: './dist/css',
     },
     js: {
-      dir: './dist/assets/js',
-      dirpages: './dist/assets/js/pages'
+      dir: './dist/js',
+      dirpages: './dist/js/pages'
     }
   },
   src: {
     dir: './src',
     files: './src/**/*',
-    assets: {
-      dir: './src/assets',
-      files: './src/assets/**/*',
-      fonts: {
-        dir: './src/assets/fonts',
-        files: './src/assets/fonts/**/*'
-      },
-      img: {
-        dir: './src/assets/img',
-        files: './src/assets/img/**/*'
-      },
-      js: {
-        dir: './src/assets/js',
-        files: './src/assets/js/**/*.js',
-        basefiles: './src/assets/js/*.js',
-        pages:{
-          dir: './src/assets/js/pages',
-          files: './src/assets/js/pages/**/*.js',
-          basefiles: './src/assets/js/pages/*.js'
-        }
-      },
-      scss: {
-        dir: './src/assets/scss',
-        files: './src/assets/scss/**/*.scss',
-        basefiles: './src/assets/scss/**/*.scss'
+    dir: './src',
+    files: './src/**/*',
+    fonts: {
+      dir: './src/fonts',
+      files: './src/fonts/**/*'
+    },
+    img: {
+      dir: './src/img',
+      files: './src/img/**/*'
+    },
+    js: {
+      dir: './src/js',
+      files: './src/js/**/*.js',
+      basefiles: './src/js/*.js',
+      pages:{
+        dir: './src/js/pages',
+        files: './src/js/pages/**/*.js',
+        basefiles: './src/js/pages/*.js'
       }
+    },
+    scss: {
+      dir: './src/scss',
+      files: './src/scss/**/*.scss',
+      basefiles: './src/scss/**/*.scss'
     },
     html: {
       dir: './src/html',
@@ -150,8 +148,8 @@ gulp.task('copy:otherfiles', function (callback) {
       paths.src.files,
       '!' + paths.src.html.dir + '/**',
       '!' + paths.src.html.partials.dir + '/**',
-      '!' + paths.src.assets.scss.dir + '/**',
-      '!' + paths.src.assets.js.dir + '/**',
+      '!' + paths.src.scss.dir + '/**',
+      '!' + paths.src.js.dir + '/**',
     ])
     .pipe(gulp.dest(paths.dist.dir));
   callback();
@@ -159,7 +157,7 @@ gulp.task('copy:otherfiles', function (callback) {
 
 gulp.task('process:css', function (callback) {
   console.log('hu');
-  gulp.src(paths.src.assets.scss.files)
+  gulp.src(paths.src.scss.files)
     //.pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(autoprefixer())
@@ -177,7 +175,7 @@ gulp.task('process:css', function (callback) {
 
 // concatenate and copy all JavaScript (except vendor scripts)
 gulp.task('process:js', function (callback) {
-  return gulp.src([paths.src.assets.js.files])
+  return gulp.src([paths.src.js.files])
     .pipe(gulp.dest(paths.dist.js.dir))
     .pipe(concat('bundle-all.js'))
     .pipe(uglify())
@@ -186,7 +184,7 @@ gulp.task('process:js', function (callback) {
 });
 
 gulp.task('process:jspages', function (callback) {
-  return gulp.src([paths.src.assets.js.pages.files])
+  return gulp.src([paths.src.js.pages.files])
     .pipe(gulp.dest(paths.dist.js.pages.dir))
     .pipe(concat('pages-all.js'))
     .pipe(uglify())
@@ -206,8 +204,8 @@ gulp.task('process:html', function () {
       basepath: '@file',
       indent: true,
     }))
-    .pipe(replace(/href="(.{0,10})node_modules/g, 'href="$1assets/libs'))
-    .pipe(replace(/src="(.{0,10})node_modules/g, 'src="$1assets/libs'))
+    .pipe(replace(/href="(.{0,10})node_modules/g, 'href="$1/libs'))
+    .pipe(replace(/src="(.{0,10})node_modules/g, 'src="$1/libs'))
     .pipe(useref())
     .pipe(cached())
     .pipe(gulp.dest(paths.dist.dir));
@@ -228,8 +226,8 @@ gulp.task('browsersyncReload', function (callback) {
 });
 
 gulp.task('watch', function () {
-  gulp.watch([paths.src.assets.scss.files], gulp.series('process:css', 'browsersyncReload'));
-  gulp.watch([paths.src.assets.js.dir], gulp.series('process:js', 'browsersyncReload'));
+  gulp.watch([paths.src.scss.files], gulp.series('process:css', 'browsersyncReload'));
+  gulp.watch([paths.src.js.dir], gulp.series('process:js', 'browsersyncReload'));
   gulp.watch([paths.src.html.files, paths.src.html.partials.files], gulp.series('process:html', 'browsersyncReload'));
 });
 
