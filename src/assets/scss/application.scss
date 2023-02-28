@@ -1,0 +1,74 @@
+@charset 'utf-8';
+
+/**
+ Arquivo principal: único arquivo de SASS que não começa com um underscore.
+ Não deve conter nada mais que @import e comentários.
+
+ fonte: https: //sass-guidelin.es/pt/
+*/
+
+//==abstracts
+@import 'abstracts/variables';
+
+
+//==vendors
+@import 'vendors/bootstrap';
+@import 'vendors/jquery-ui';
+
+//==vendor extensions Customizations (Bootstrap, Font amesome, etc)
+//@import 'custom/am-datatable-toolbar';
+//@import 'custom/am-fa-icons';
+//@import 'custom/am-alert';
+//@import 'custom/am-label';
+//@import 'custom/am-form-control';
+//@import 'custom/am-btn';
+//@import 'custom/am-table';
+//@import 'custom/am-pagination';
+//@import 'custom/am-page-header';
+//@import 'custom/am-utilities';
+
+//==base
+@import 'base/typography';
+
+
+//==partials or layout
+@import 'partials/navegation';
+//@import 'layout/grid';
+@import 'partials/header';
+@import 'partials/page';
+@import 'partials/content';
+@import 'partials/sidebar';
+@import 'partials/loading';
+@import 'partials/forms';
+@import 'partials/footer';
+@import 'partials/simple-page';
+
+
+//==components
+@import 'components/am-balls-spinner';
+@import 'components/am-error-panel';
+@import 'components/am-footer-disclaimer';
+@import 'components/am-logged-user';
+@import 'components/am-search-modal';
+@import 'components/am-simple-panel';
+@import 'components/am-menu';
+@import 'components/am-box';
+@import 'components/am-graph-box';
+
+//==pages
+@import 'pages/home';
+
+
+//==themes
+
+
+
+//==utils
+@import 'utils/am-text-align';
+@import 'utils/am-generic';
+
+
+
+
+
+
