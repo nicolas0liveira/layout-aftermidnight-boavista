@@ -1,1 +1,49 @@
 /*_sidebar.scss */
+.am-layout-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    height: 100%;
+    //width: 0px;
+    padding-top: 54px;
+    margin-left: -($am-sidebar-width + 1);
+    border-right-color: $am-sidebar-border-color;
+    border-right: 1px solid;
+    border-right-color: transparent;
+    overflow-x: hidden;
+
+    background-color: $am-sidebar-bg;
+
+    transition: all 0.5s;
+
+    @include media-breakpoint-only(md) {
+        //width: $am-sidebar-width;
+        //border-right-color: $am-sidebar-border-color;
+        margin-left: 0px;
+    }
+
+    &.is-toggled {
+        //width: $am-sidebar-width;
+        //border-right-color: $am-sidebar-border-color;   
+        margin-left: 0px;
+
+        @include media-breakpoint-only(md) {
+            //width: 0px;
+            //border-right-color: transparent;
+            //margin-left: -($am-sidebar-width + 1);
+        }
+    }
+
+}
+
+.am-layout-sidebar__content {
+    position: relative;
+
+    overflow-y: auto;
+    height: 100%;
+    //width: auto;
+    //width: $am-sidebar-width;
+}

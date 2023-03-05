@@ -1,9 +1,15 @@
-/*am-btn.scss */
 
-button,
-a {
-    outline: none !important;
+.am-btn {
+    .am-btn {
+        @each $name, $color in $theme-colors {
+            &__#{$name} {
+            background: $color;
+            color: complement($color);
+            }
+        }
+    }
 }
+
 
 // Rounded Buttons
 .btn-rounded {
@@ -14,13 +20,14 @@ a {
     color: #fff !important;
 }
 
-
 .btn-cancel {
     color: #fff !important;
+    /* @import button-variant($am-btn-cancel-color; $am-btn-cancel-bg; $am-btn-cancel-border); */
 }
 
 .am-btn-link-danger {
     color: #fff !important;
+
     &:hover,
     &:focus,
     &:active {

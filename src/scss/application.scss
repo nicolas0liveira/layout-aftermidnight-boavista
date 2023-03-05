@@ -1,8 +1,10 @@
 @charset 'utf-8';
+//https: //maujor.com/tutorial/guia-para-escrever-css.php#the-importance-of-a-styleguide
+//https: //github.com/KittyGiraudel/sass-guidelines
 
 ///
 /// Arquivo principal: único arquivo de SASS que não começa com um underscore.
-/// Não deve conter nada mais que @import e comentários.
+/// Não deve conter nada mais que @use @imports e comentários.
 /// 
 /// fonte: https: //sass-guidelin.es/pt/
 /// 
@@ -11,18 +13,21 @@
 /// @access public
 ///
 
+//==abstract or helpers Configuration and helpers
+@import 'abstract/variables';
+@import 'abstract/mixins';
+
 
 //==vendors
 @import 'vendors/bootstrap';
-@import 'vendors/jquery-ui';
-
-
-//==helpers or abstracts
-@import 'helpers/variables';
+@import 'vendors/fontawessome';
 
 
 //==vendor extensions Customizations (Bootstrap, Font amesome, etc)
-//@import 'custom/am-datatable-toolbar';
+//@import 'vendors/extensions/bootstrap
+//@import 'vendors/extensions/fontawessome
+
+///am-datatable-toolbar';
 //@import 'custom/am-fa-icons';
 //@import 'custom/am-alert';
 //@import 'custom/am-label';
@@ -34,12 +39,13 @@
 //@import 'custom/am-utilities';
 
 //==base
+@import 'base/base';
+@import 'base/fonts';
 @import 'base/typography';
 
 
-//==partials or layout
+//==layout or partials - Layout-related sections
 @import 'partials/navegation';
-//@import 'layout/grid';
 @import 'partials/header';
 @import 'partials/page';
 @import 'partials/content';
@@ -51,8 +57,9 @@
 
 
 //==components
-@import 'components/am-balls-spinner';
+@import 'components/am-button';
 @import 'components/am-error-panel';
+@import 'components/am-balls-spinner';
 @import 'components/am-footer-disclaimer';
 @import 'components/am-logged-user';
 @import 'components/am-search-modal';
@@ -62,17 +69,13 @@
 @import 'components/am-graph-box';
 
 
-//==pages
+//==Page-specific styles
 @import 'pages/home';
+@import 'pages/error';
 
 
 //==themes
 
-
-
-//==utils
-@import 'utils/am-text-align';
-@import 'utils/am-generic';
 
 
 //==shamefile

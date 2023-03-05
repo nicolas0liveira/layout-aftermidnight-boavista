@@ -1,1 +1,17 @@
 /*_am-footer-disclaimer.scss */
+/*-------------------------------------------------*\
+  Footer disclaimer
+  - Para usar na informação de copyright no rodapé
+\*-------------------------------------------------*/
+//@use "../helpers/variables";
+
+.am-footer-disclaimer {
+    //@include small;
+
+    display: block;
+
+    color: $am-footer-disclaimer-color;
+
+    line-height: 4;
+    text-align: center;
+}

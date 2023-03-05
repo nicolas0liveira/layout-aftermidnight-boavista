@@ -1,0 +1,301 @@
+@charset 'utf-8';
+
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1280px !default;
+
+/// Breakpoints map
+/// @prop {String} keys - Keys are identifiers mapped to a given length
+/// @prop {Map} values - Values are actual breakpoints expressed in pixels
+$breakpoints: (
+    'extra-small': (min-width: 320px),
+    'small':       (min-width: 600px),
+    'medium':      (min-width: 800px),
+    'large':       (min-width: 1000px),
+    'huge':        (min-width: 1200px),
+) !default;
+
+// #####################
+// # Common colors
+// #####################
+$gray:        #5a5a5a !default ;
+$gray-dark:     darken($gray, 20%) !default ;
+$gray-light:    lighten($gray, 20%) !default ;
+$gray-lighter:  lighten($gray, 30%) !default ;
+
+// Color system
+
+// scss-docs-start gray-color-variables
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #f5f6f8;
+$gray-300: #eff0f2;
+$gray-400: #e2e5e8;
+$gray-500: #adb5bd;
+$gray-600: #74788d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+// scss-docs-end gray-color-variables
+
+// scss-docs-start gray-colors-map
+$grays: (
+  "100": $gray-100,
+  "200": $gray-200,
+  "300": $gray-300,
+  "400": $gray-400,
+  "500": $gray-500,
+  "600": $gray-600,
+  "700": $gray-700,
+  "800": $gray-800,
+  "900": $gray-900
+);
+// scss-docs-end gray-colors-map
+
+// scss-docs-start color-variables
+$blue:    #038edc;
+$indigo:  #564ab1;
+$purple:  #564ab1;
+$pink:    #e83e8c;
+$red:     #f34e4e;
+$orange:  #f1734f;
+$yellow:  #f7cc53;
+$green:   #51d28c;
+$teal:    #050505;
+$cyan:    #5fd0f3;
+// scss-docs-end color-variables
+
+// scss-docs-start colors-map
+$colors: (
+    "blue":       $blue,
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "black":      $black,
+    "white":      $white,
+    "gray":       $gray-600,
+    "gray-dark":  $gray-800
+);
+// scss-docs-end colors-map
+// scss-docs-start theme-color-variables
+$primary:       $blue;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$orange:        $orange;
+$danger:        $red;
+$light:         $gray-200;
+$dark:          $gray-800;
+$purple:        $purple;
+
+// scss-docs-end theme-color-variables
+$theme-colors: (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "pink":       $pink,
+    "light":      $light,
+    "dark":       $dark,
+    "purple":       $purple
+);
+
+// scss-docs-end theme-colors-map
+
+//personalizações
+$brand-color-primary: #1e94d2 !default;
+$brand-danger: #456 !default;
+$btn-primary-bg: #126 !default;
+
+// #####################
+// # Common borders
+// #####################
+$border-radius-base: 2px !default ;
+$border-radius-large: 4px !default ;
+$border-radius-small: 1px !default ;
+
+// #####################
+// # Common typography
+// #####################
+
+$text-color: #222 !default;
+
+/// Regular font family
+/// @type List
+$text-font-stack: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+
+/// Code (monospace) font family
+/// @type List
+$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+
+$font-size-base: 0.9rem !default ;
+
+$font-size-h1: floor(($font-size-base * 1.7)) !default ;
+$font-size-h2: floor(($font-size-base * 1.6)) !default ;
+$font-size-h3: ceil(($font-size-base * 1.38)) !default ;
+$font-size-h4: ceil(($font-size-base * 1.23)) !default ;
+$font-size-h5: ceil(($font-size-base * 1.07)) !default ;
+$font-size-h6: $font-size-base !default ;
+
+//$icon-font-path: "../libs/bootstrap/fonts/" !default ;
+$fa-font-path: "../../fonts/" !default ;
+
+// #####################
+// # Layout - Simple Page
+// #####################
+
+// Background color for simple pages, like login, 404, 500, etc
+$am-layout-simple-page-bg: #f4f4f4 !default ;
+
+
+// #####################
+// # Error panel
+// #####################
+$am-error-panel-default-color:   $gray !default ;
+$am-error-panel-code-color:      lighten($am-error-panel-default-color, 40%) !default ;
+$am-error-panel-code-font-size:  floor(($font-size-base * 6.2)) !default ;
+$am-error-panel-title-font-size: floor(($font-size-base * 2.5)) !default ;
+
+// #####################
+// # Box
+// #####################
+$am-box-border-color: #eee !default ;
+$am-box-primary-color: $brand-color-primary !default ;
+
+
+// #####################
+// # Graph Box
+// #####################
+$am-graph-box-border-color: #eee !default ;
+$am-graph-box-no-data-color: $gray-light !default ;
+
+
+// #####################
+// # Balls spinner
+// #####################
+$am-balls-spinner-one-bg: $brand-color-primary !default ;
+$am-balls-spinner-two-bg: lighten($brand-color-primary, 30%) !default ;
+$am-balls-spinner-three-bg: darken($brand-color-primary, 10%) !default ;
+$am-balls-spinner-ball-size: 65px !default ;
+
+
+// #####################
+// # Navbar
+// #####################
+
+// Point at which the navbar becomes uncollapsed.
+$grid-float-breakpoint: 0 !default ;
+
+// Background color for navbar
+$navbar-default-bg: $brand-color-primary !default ;
+
+$navbar-default-color: #fff !default ;
+
+// Navbar links
+$navbar-default-link-color: #fff !default ;
+$navbar-default-link-hover-color: darken($brand-color-primary, 15%) !default ;
+$navbar-default-link-active-color: darken($brand-color-primary, 25%) !default ;
+
+
+// #####################
+// # Footer disclaimer
+// #####################
+$am-footer-disclaimer-color: $gray-light !default ;
+
+
+// #####################
+// # Logged user
+// #####################
+$am-logged-user-border-color: lighten($gray, 50%) !default ;
+
+
+// #####################
+// # Search modal
+// #####################
+$am-search-modal-bg: $brand-color-primary !default ;
+$am-search-modal-input-bg: lighten($brand-color-primary, 5%) !default ;
+$am-search-modal-placeholder-color: lighten($brand-color-primary, 25%) !default ;
+$am-search-modal-icon-color: darken($brand-color-primary, 20%) !default ;
+$am-search-modal-icon-hover-color: darken($brand-color-primary, 30%) !default ;
+
+
+// #####################
+// # Pagination
+// #####################
+$am-pagination-info-color: $gray-light !default ;
+
+
+// #####################
+// # Page header
+// #####################
+$am-page-header-height: 80px !default ;
+$am-page-header-bgcolor: #fafbfd !default ;
+$am-page-header-title-color: $gray-dark !default ;
+
+
+// #####################
+// # Side bar
+// #####################
+$am-sidebar-width: 210px !default ;
+$am-sidebar-bg: #f6f6f6 !default ;
+$am-sidebar-border-color: darken($am-sidebar-bg, 8%) !default ;
+
+
+// #####################
+// # Side menu
+// #####################
+$am-menu-item-color: lighten(#000, 10%) !default ;
+$am-menu-item-hover-bg: $gray-lighter !default ;
+$am-menu-item-active-color: $brand-color-primary !default ;
+$am-menu-group-expanded-border-left-color: $brand-color-primary !default ;
+$am-menu-group-expanded-menu-links-bg: lighten(#f7f7f7, 1%) !default ;
+$am-menu-group-expanded-bg: darken(#f7f7f7, 1%) !default ;
+
+
+// #####################
+// # Button
+// #####################
+$btn-primary-border: darken($btn-primary-bg, 3%) !default ;
+
+// Custom
+$am-btn-cancel-color: #fff !default ;
+$am-btn-cancel-bg: #a1a1a1 !default ;
+$am-btn-cancel-border: darken($am-btn-cancel-bg, 5%) !default ;
+$am-btn-danger-link-color: $brand-danger !default ;
+
+
+// #####################
+// # Alert
+// #####################
+$am-alert-no-results-bg: #f9f9f9 !default ;
+$am-alert-no-results-border: darken($am-alert-no-results-bg, 3%) !default ;
+$am-alert-no-results-text: darken($am-alert-no-results-bg, 50%) !default ;
+
+
+// #####################
+// # Simple form
+// #####################
+$am-simple-panel-default-color: $gray-light !default ;
+$am-simple-panel-error-color: #e70500 !default ;
+
+
+// #####################
+// # Data table toolbar
+// #####################
+$form-group-margin-bottom:15 !default ;
+$am-datatable-toolbar-margin-bottom: ceil($form-group-margin-bottom * 0.66) !default ;
+$am-datatable-toolbar-margin-top: $form-group-margin-bottom * 2 !default ;

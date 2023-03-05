@@ -6,6 +6,43 @@
 /// @author Nícolas Oliveira
 /// 
 
-.asd {
-    
+
+/**
+ * Basic typography style for copy text
+ */
+body {
+  //font: normal 125% / 1.4 $text-font-stack;
+  font-size: $font-size-base;
+} 
+
+/* text align */
+
+.am-text-xs-left { text-align: left; }
+.am-text-xs-right { text-align: right; }
+.am-text-xs-center { text-align: center; }
+.am-text-xs-justify { text-align: justify; }
+
+@include media-breakpoint-up(sm){
+  .am-text-sm-left { text-align: left; }
+  .am-text-sm-right { text-align: right; }
+  .am-text-sm-center { text-align: center; }
+  .am-text-sm-justify { text-align: justify; }
 }
+
+@include media-breakpoint-up(md) {
+  .am-text-md-left { text-align: left; }
+  .am-text-md-right { text-align: right; }
+  .am-text-md-center { text-align: center; }
+  .am-text-md-justify { text-align: justify; }
+}
+
+
+@include media-breakpoint-up(lg) {
+  .am-text-lg-left { text-align: left; }
+  .am-text-lg-right { text-align: right; }
+  .am-text-lg-center { text-align: center; }
+  .am-text-lg-justify { text-align: justify; }
+}
+
+
+

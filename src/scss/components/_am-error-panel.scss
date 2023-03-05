@@ -1,1 +1,28 @@
 /*_am-error-panel.scss */
+
+/*-----------------------------------------------------------*\
+  Error panel
+  - Para ser usado em páginas de erro simples (404, 500, etc)
+\*-----------------------------------------------------------*/
+
+.am-error-panel {
+    color: $am-error-panel-default-color;
+
+    text-align: center;
+}
+
+.am-error-panel__title {
+    font-size: $am-error-panel-title-font-size;
+}
+
+.am-error-panel__description {
+    display: block;
+    padding: 18px 0;
+}
+
+.am-error-panel__code {
+    color: $am-error-panel-code-color;
+
+    font-size: $am-error-panel-code-font-size;
+    font-weight: normal;
+}

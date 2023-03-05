@@ -87,10 +87,6 @@ const paths = {
     files: './src/**/*',
     dir: './src',
     files: './src/**/*',
-    fonts: {
-      dir: './src/fonts',
-      files: './src/fonts/**/*'
-    },
     img: {
       dir: './src/img',
       files: './src/img/**/*'
@@ -131,9 +127,9 @@ const paths = {
 };
 
 gulp.task('sassdoc', function () {
-  var options = {
+  let options = {
     dest: paths.doc.cssdir,
-    verbose: true,
+    verbose: false,
     package: 'package.json',
     display: {
       access: ['public', 'private'],
@@ -196,8 +192,8 @@ gulp.task('copy:otherfiles', function (callback) {
 
 gulp.task('process:css', function (callback) {
   gulp.src(paths.src.scss.files)
-    //.pipe(sourcemaps.init())
-    .pipe(sass())
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(gulp.dest(paths.dist.css.dir))
     .pipe(cleanCSS())
@@ -206,7 +202,7 @@ gulp.task('process:css', function (callback) {
         suffix: ".min"
       })
     )
-    //.pipe(sourcemaps.write("."))
+    .pipe(sourcemaps.write("."))
     .pipe(gulp.dest(paths.dist.css.dir));
   callback();
 });
@@ -215,8 +211,13 @@ gulp.task('process:css', function (callback) {
 gulp.task('process:js', function (callback) {
   return gulp.src([paths.src.js.files])
     .pipe(gulp.dest(paths.dist.js.dir))
-    .pipe(concat('bundle-all.js'))
+    .pipe(concat('app-all.js'))
     .pipe(uglify())
+    .pipe(
+      rename({
+        suffix: ".min"
+      })
+    )
     .pipe(gulp.dest(paths.dist.js.dir));
   callback();
 });
